@@ -13,8 +13,12 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => { console.log(`Server listening on port ${PORT}`); });
 
 app.get('/', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.json({"foo": "bar"});
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
+  res.send({"foo": "bar"});
 });
 
 var admin = require("firebase-admin");
@@ -43,6 +47,31 @@ usersRef.set({
 
 app.use(cors(corsOptions));
 
+app.get('/sms', (req,res)=>{   
+     
+  res.send({    
+      
+          user: '1234',
+          contact: [
+            {
+              number: '534543543',
+              message: 'test message 1',
+              externalid: '123456'
+            }
+          ],
+          type: '2'      
+  }).then(function(response){
+      console.log(response.data)
+      console.log(response.headers)
+      console.log(response.status)
+  }).catch(function(error){
+      if(error){
+          console.log(error)
+      }
+  })
+  
+  return res.json({teste:1})
+}) 
 /*
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
