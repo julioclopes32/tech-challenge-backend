@@ -13,7 +13,8 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => { console.log(`Server listening on port ${PORT}`); });
 
 app.get('/', (req, res) => {
-  res.send("Hello World")
+  res.setHeader('Content-Type', 'application/json');
+  res.json({"foo": "bar"});
 });
 
 var admin = require("firebase-admin");
