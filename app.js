@@ -9,7 +9,7 @@ app.listen(PORT, () => { console.log(`Server listening on port ${PORT}`); });
 app.get('/', (req, res) => {
   res.send("Hello World")
 });
-/*
+
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f55a9c7f4.json");
@@ -33,7 +33,7 @@ usersRef.set({
     full_name: 'Grace Hopper'
   }
 });
-
+/*
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
