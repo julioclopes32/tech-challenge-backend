@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const cors = require("cors")
 
+const PORT = process.env.PORT || 3000;
+
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f55a9c7f4.json");
@@ -34,6 +36,9 @@ app.get('/', (req, res) => {
     res.send("Hello World")
 });
 
-app.listen(3000, () => {
-    console.log("Server running in port 3001");
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.statusCode).json(err);
 });
+
+app.listen(PORT, () => { console.log(`Server listening on port ${PORT}`); });
