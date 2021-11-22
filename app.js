@@ -4,6 +4,12 @@ const cors = require("cors")
 
 const PORT = process.env.PORT || 3000;
 
+app.listen(PORT, () => { console.log(`Server listening on port ${PORT}`); });
+
+app.get('/', (req, res) => {
+  res.send("Hello World")
+});
+/*
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f55a9c7f4.json");
@@ -31,14 +37,8 @@ usersRef.set({
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
-app.get('/', (req, res) => {
-    res.send("Hello World")
-});
-
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(err.statusCode).json(err);
 });
-
-app.listen(PORT, () => { console.log(`Server listening on port ${PORT}`); });
+*/
