@@ -49,8 +49,6 @@ usersRef.set({
   }
 });
 
-app.use(cors(corsOptions));
-
 app.get('/sms', (req,res)=>{   
      
   res.send({    
@@ -64,18 +62,10 @@ app.get('/sms', (req,res)=>{
             }
           ],
           type: '2'      
-  }).then(function(response){
-      console.log(response.data)
-      console.log(response.headers)
-      console.log(response.status)
-  }).catch(function(error){
-      if(error){
-          console.log(error)
-      }
   })
-  
-  return res.json({teste:1})
 }) 
+
+app.use(cors(corsOptions));
 /*
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
