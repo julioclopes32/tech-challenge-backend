@@ -25,6 +25,11 @@ app.get('/', (req, res) => {
   res.send({"foo": "bar"});
 });
 
+app.post('/favorites', function (req, res) {
+  var post_body = req.body;
+  console.log(post_body);
+})
+
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f55a9c7f4.json"); 
@@ -34,8 +39,11 @@ admin.initializeApp({
   databaseURL: "https://tech-challenge-2ccfa-default-rtdb.firebaseio.com"
 });
 
+
+/*
 const db = admin.database();
 const ref = db.ref('server/saving-data/fireblog');
+
 
 const usersRef = ref.child('users');
 usersRef.set({
@@ -63,7 +71,7 @@ app.get('/sms', (req,res)=>{
           ],
           type: '2'      
   })
-}) 
+}) */
 
 app.use(cors(corsOptions));
 /*
