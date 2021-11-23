@@ -46,7 +46,7 @@ app.post('/favorites', function (req, res) {
   console.log("hello");
   res.send({"foo": "bar"});
 
-  const refFavorites = ref.child(req.body.user);
+  const refFavorites = refFavorites.child(req.body.user);
   refFavorites.set({post_body});
 
 })
