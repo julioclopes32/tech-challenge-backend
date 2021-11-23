@@ -1,7 +1,15 @@
 const express = require('express')
 var bodyParser = require('body-parser')
+var admin = require("firebase-admin");
 const app = express()
 const cors = require("cors")
+
+var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f55a9c7f4.json"); 
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://tech-challenge-2ccfa-default-rtdb.firebaseio.com"
+});
 
 const corsOptions ={
   origin:'http://localhost:3000', 
@@ -11,15 +19,6 @@ const corsOptions ={
 
 const db = admin.database();
 const ref = db.ref('teste/saving-data/post');
-
-var admin = require("firebase-admin");
-
-var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f55a9c7f4.json"); 
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://tech-challenge-2ccfa-default-rtdb.firebaseio.com"
-});
 
 const PORT = process.env.PORT || 3000;
 
