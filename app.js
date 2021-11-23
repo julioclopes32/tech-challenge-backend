@@ -1,4 +1,5 @@
 const express = require('express')
+var bodyParser = require('body-parser')
 const app = express()
 const cors = require("cors")
 
@@ -34,7 +35,10 @@ app.get('/', (req, res) => {
   res.send({"foo": "bar"});
 });
 
-app.post('/favorites', function (req, res) {
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
+
+app.post('/favorites', urlencodedParser, function (req, res) {
   var post_body = req.body;
   console.log(post_body);
   console.log("hello");
