@@ -50,6 +50,11 @@ app.post('/favorites', function (req, res) {
   ref.set({post_body});
 
 })
+
+app.get('/getfavorites', (req, res) => {
+  console.log(req.query.id)
+  res.send({"foo": "bar"});
+});
 /*
 
 const db = admin.database();
