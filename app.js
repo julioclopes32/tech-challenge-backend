@@ -2,9 +2,6 @@ const express = require('express')
 const app = express()
 const cors = require("cors")
 
-const db = admin.database();
-const ref = db.ref('teste/saving-data/post');
-
 const corsOptions ={
   origin:'http://localhost:3000', 
   credentials:true,            //access-control-allow-credentials:true
@@ -49,7 +46,8 @@ admin.initializeApp({
 
 
 /*
-
+const db = admin.database();
+const ref = db.ref('teste/saving-data/post');
 
 
 const usersRef = ref.child('users');
