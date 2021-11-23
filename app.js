@@ -18,7 +18,7 @@ const corsOptions ={
 }
 
 const db = admin.database();
-const ref = db.ref('favorites');
+let ref = db.ref('favorites');
 
 const PORT = process.env.PORT || 3000;
 
