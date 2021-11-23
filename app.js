@@ -12,7 +12,7 @@ admin.initializeApp({
 });
 
 const corsOptions ={
-  origin:'https://tech-challenge-frontend.herokuapp.com', 
+  origin:'https://tech-challenge-frontend.herokuapp.com/', 
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 }
