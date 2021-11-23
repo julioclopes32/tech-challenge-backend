@@ -18,7 +18,7 @@ const corsOptions ={
 }
 
 const db = admin.database();
-const ref = db.ref('teste/saving-data/post');
+const refFavorites = db.ref('favorites');
 
 const PORT = process.env.PORT || 3000;
 
@@ -46,8 +46,8 @@ app.post('/favorites', function (req, res) {
   console.log("hello");
   res.send({"foo": "bar"});
 
-  const usersRef = ref.child('teste2');
-  usersRef.set({post_body});
+  const refFavorites = ref.child(req.body.user);
+  refFavorites.set({post_body});
 
 })
 /*
