@@ -63,11 +63,12 @@ app.get('/getfavorites', (req, res) => {
       firebasearray.append(productSnapshot.val());
       // TODO: Do something with product data
     });
+    var jsonArray = JSON.parse(JSON.stringify(firebasearray))
+    res.send(jsonArray);
   })
   .catch((error) => {
     // TODO: Log/report error
   });
-  res.send({"foo": "bar"});
 });
 /*
 
