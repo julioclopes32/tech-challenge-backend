@@ -34,7 +34,7 @@ app.post('/favorites', function (req, res) {
   usersRef.set({post_body});*/
 
 })
-
+/*
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f55a9c7f4.json"); 
@@ -45,7 +45,7 @@ admin.initializeApp({
 });
 
 
-/*
+
 const db = admin.database();
 const ref = db.ref('teste/saving-data/post');
 
