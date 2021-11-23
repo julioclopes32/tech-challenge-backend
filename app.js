@@ -28,6 +28,7 @@ app.get('/', (req, res) => {
 app.post('/favorites', function (req, res) {
   var post_body = req.body;
   console.log(post_body);
+  res.send(post_body);
 })
 
 var admin = require("firebase-admin");
