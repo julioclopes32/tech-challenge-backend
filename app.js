@@ -8,7 +8,7 @@ const corsOptions ={
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 }
-
+/*
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f55a9c7f4.json"); 
@@ -16,7 +16,7 @@ var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f5
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://tech-challenge-2ccfa-default-rtdb.firebaseio.com"
-});
+});*/
 
 const PORT = process.env.PORT || 3000;
 
