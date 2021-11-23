@@ -8,6 +8,15 @@ const corsOptions ={
   optionSuccessStatus:200
 }
 
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f55a9c7f4.json"); 
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://tech-challenge-2ccfa-default-rtdb.firebaseio.com"
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => { console.log(`Server listening on port ${PORT}`); });
@@ -28,6 +37,7 @@ app.get('/', (req, res) => {
 app.post('/favorites', function (req, res) {
   var post_body = req.body;
   console.log(post_body);
+  console.log("hello");
   res.send({"foo": "bar"});
   /*
   const usersRef = ref.child('teste2');
@@ -35,16 +45,6 @@ app.post('/favorites', function (req, res) {
 
 })
 /*
-var admin = require("firebase-admin");
-
-var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f55a9c7f4.json"); 
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://tech-challenge-2ccfa-default-rtdb.firebaseio.com"
-});
-
-
 
 const db = admin.database();
 const ref = db.ref('teste/saving-data/post');
