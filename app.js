@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
 
-app.post('/favorites', urlencodedParser, function (req, res) {
+app.post('/favorites', function (req, res) {
   var post_body = req.body;
   console.log(post_body);
   console.log("hello");
