@@ -53,6 +53,20 @@ app.post('/favorites', function (req, res) {
 
 app.get('/getfavorites', (req, res) => {
   console.log(req.query.id)
+
+  admin.database().ref("favorites").once("value")
+  .then((snapshot) => {
+    console.log(snapshot)
+    snapshot.forEach((productSnapshot) => {
+      //let sku = productSnapshot.key;
+      //let data = productSnapshot.val();
+      console.log(productSnapshot.val());
+      // TODO: Do something with product data
+    });
+  })
+  .catch((error) => {
+    // TODO: Log/report error
+  });
   res.send({"foo": "bar"});
 });
 /*
