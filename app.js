@@ -9,6 +9,8 @@ const corsOptions ={
   optionSuccessStatus:200
 }
 
+const db = admin.database();
+const ref = db.ref('teste/saving-data/post');
 
 var admin = require("firebase-admin");
 
