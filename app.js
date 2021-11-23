@@ -60,7 +60,7 @@ app.get('/getfavorites', (req, res) => {
     snapshot.forEach((productSnapshot) => {
       //let sku = productSnapshot.key;
       //let data = productSnapshot.val();
-      console.log(productSnapshot.val());
+      //console.log(productSnapshot.val());
       // TODO: Do something with product data
     });
   })
