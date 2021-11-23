@@ -2,6 +2,9 @@ const express = require('express')
 const app = express()
 const cors = require("cors")
 
+const db = admin.database();
+const ref = db.ref('teste/saving-data/post');
+
 const corsOptions ={
   origin:'http://localhost:3000', 
   credentials:true,            //access-control-allow-credentials:true
@@ -28,7 +31,10 @@ app.get('/', (req, res) => {
 app.post('/favorites', function (req, res) {
   var post_body = req.body;
   console.log(post_body);
-  res.send(post_body);
+  res.send({"foo": "bar"});
+  const usersRef = ref.child('teste2');
+  usersRef.set({post_body});
+
 })
 
 var admin = require("firebase-admin");
@@ -42,8 +48,7 @@ admin.initializeApp({
 
 
 /*
-const db = admin.database();
-const ref = db.ref('server/saving-data/fireblog');
+
 
 
 const usersRef = ref.child('users');
