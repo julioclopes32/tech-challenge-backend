@@ -54,22 +54,10 @@ app.post('/favorites', function (req, res) {
 app.get('/getfavorites', (req, res) => {
   console.log(req.query.id)
   let firebasearray = [];
-  admin.database().ref("favorites").once("value")
-  .then((snapshot) => {
-    snapshot.forEach((productSnapshot) => {
-      //let sku = productSnapshot.key;
-      //let data = productSnapshot.val();
-      console.log(productSnapshot.val());
-      firebasearray.append(productSnapshot.val());
-      // TODO: Do something with product data
-    });
-    var jsonArray = JSON.parse(JSON.stringify(firebasearray))
-    res.send(jsonArray);
-  })
-  .catch((error) => {
-    // TODO: Log/report error
-  });
-});
+  admin.database().ref("favorites").on("value", snap => {
+    res.send(JSON.stringify(snap.val(), null, 3));
+  });    
+})
 /*
 
 const db = admin.database();
