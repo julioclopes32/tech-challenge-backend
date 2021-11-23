@@ -53,14 +53,14 @@ app.post('/favorites', function (req, res) {
 
 app.get('/getfavorites', (req, res) => {
   console.log(req.query.id)
-
+  let firebasearray = [];
   admin.database().ref("favorites").once("value")
   .then((snapshot) => {
-    console.log(snapshot)
     snapshot.forEach((productSnapshot) => {
       //let sku = productSnapshot.key;
       //let data = productSnapshot.val();
-      //console.log(productSnapshot.val());
+      console.log(productSnapshot.val());
+      firebasearray.append(productSnapshot.val());
       // TODO: Do something with product data
     });
   })
