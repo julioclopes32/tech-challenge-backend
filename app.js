@@ -12,7 +12,7 @@ admin.initializeApp({
 });
 
 const corsOptions ={
-  origin:'https://tech-challenge-frontend.herokuapp.com/', 
+  origin:'https://tech-challenge-frontend.herokuapp.com', 
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 }
@@ -23,12 +23,9 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => { console.log(`Server listening on port ${PORT}`); });
 
-app.use(function(req, res, next){
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Max-Age", "1800");
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
-  res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" );
+app.all('*', function(req, res, next){
+  res.header("Access-Control-Allow-Origin", origin);
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
