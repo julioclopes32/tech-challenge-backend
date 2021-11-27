@@ -52,12 +52,12 @@ app.post('/removefavorites', function (req, res) {
   let ref = db.ref('favorites');
   console.log("removeFirebase");
   ref = ref.child(req.body.user.uid).child(req.body.imdbID);
-  try{
-    ref.remove();
-  } catch(error){
-    console.log(error)
-  }
-  res.send({"result": "ok"})
+  ref.remove().then(() => {
+    res.send({"result": "ok"})
+  })
+  .catch(error => {
+    res.send(error);
+  });
   return
 })
 
@@ -69,7 +69,7 @@ app.get('/getfavorites', (req, res) => {
   res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" );*/
   console.log(req.query.id)
   let firebasearray = [];
-  admin.database().ref("favorites").on("value", snap => {
+  admin.database().ref("favorites").once("value", snap => {
     res.send(JSON.stringify(snap.val(), null, 3));
   });    
   return
