@@ -50,12 +50,13 @@ app.post('/favorites', function (req, res) {
 app.post('/removefavorites', function (req, res) {
   res.header("Access-Control-Allow-Origin", 'http://tech-challenge-frontend.herokuapp.com');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.send({"result": "ok"});
   var post_body = req.body;
   console.log(post_body);
   let ref = db.ref('favorites');
   console.log("removeFirebase")
-  ref = ref.child(req.body.user.uid).child(req.body.imdbID).remove();
+  ref = ref.child(req.body.user.uid).child(req.body.imdbID).remove().then(
+    res.send({"result": "ok"})
+  );
 })
 
 app.get('/getfavorites', (req, res) => {
