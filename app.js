@@ -48,10 +48,8 @@ app.post('/favorites', function (req, res) {
 app.post('/removefavorites', function (req, res) {
   var post_body = req.body;
   console.log(post_body);
-  res.send({"result": "ok"});
-  /*let ref = db.ref('favorites');
-  ref = ref.child(req.body.user.uid).child(req.body.imdbID);
-  ref.set({post_body});*/
+  let ref = db.ref('favorites');
+  ref = ref.child(req.body.user.uid).child(req.body.imdbID).remove().then(res.send({"result": "ok"}));
 })
 
 app.get('/getfavorites', (req, res) => {
