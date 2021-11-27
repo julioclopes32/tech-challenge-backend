@@ -39,10 +39,11 @@ app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
 app.post('/favorites', function (req, res) {
   var post_body = req.body;
   console.log(post_body);
-  res.send({"result": "ok"});
   let ref = db.ref('favorites');
   ref = ref.child(req.body.user.uid).child(req.body.imdbID);
-  ref.set({post_body});
+  ref.set({post_body}).on("value", snap => {
+    res.send(JSON.stringify(snap.val(), null, 3));
+  });    
 })
 
 app.post('/removefavorites', function (req, res) {
