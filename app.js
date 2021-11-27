@@ -45,6 +45,7 @@ app.post('/favorites', function (req, res) {
   ref = ref.child(req.body.user.uid).child(req.body.imdbID);
   ref.set({post_body});
   res.send({"result": "ok"});
+  return
 })
 
 app.post('/removefavorites', function (req, res) {
@@ -72,6 +73,7 @@ app.get('/getfavorites', (req, res) => {
   admin.database().ref("favorites").on("value", snap => {
     res.send(JSON.stringify(snap.val(), null, 3));
   });    
+  return
 })
 /*
 
