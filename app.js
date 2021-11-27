@@ -44,10 +44,10 @@ app.post('/favorites', function (req, res) {
 
   let ref = db.ref('favorites');
   console.log("user");
-  console.log(req.body.user)
+  console.log(req.body.user.uid)
   console.log("imdbID")
   console.log(req.body.imdbID)
-  ref = ref.child(req.body.user).child(req.body.imdbID);
+  ref = ref.child(req.body.user.uid).child(req.body.imdbID);
   ref.set({post_body});
 
 })
