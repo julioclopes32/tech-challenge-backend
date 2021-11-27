@@ -43,6 +43,10 @@ app.post('/favorites', function (req, res) {
   res.send({"foo": "bar"});
 
   let ref = db.ref('favorites');
+  console.log("user");
+  console.log(req.body.user)
+  console.log("imdbID")
+  console.log(req.body.imdbID)
   ref = ref.child(req.body.user).child(req.body.imdbID);
   ref.set({post_body});
 
