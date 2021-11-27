@@ -50,8 +50,9 @@ app.post('/removefavorites', function (req, res) {
   console.log(post_body);
   let ref = db.ref('favorites');
   console.log("removeFirebase")
-  ref = ref.child(req.body.user.uid).child(req.body.imdbID).remove()
-  return res.send({"result": "ok"});
+  ref = ref.child(req.body.user.uid).child(req.body.imdbID).remove().on("value", snap => {
+    res.send(JSON.stringify(snap.val(), null, 3));
+  });    
 })
 
 app.get('/getfavorites', (req, res) => {
