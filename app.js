@@ -30,7 +30,7 @@ app.all('*', function(req, res, next){
 });
 
 app.get('/', (req, res) => {
-  res.send({"foo": "bar"});
+  res.send({"result": "ok"});
 });
 
 app.use(bodyParser.json()); // support json encoded bodies
@@ -39,10 +39,19 @@ app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
 app.post('/favorites', function (req, res) {
   var post_body = req.body;
   console.log(post_body);
+  res.send({"result": "ok"});
   let ref = db.ref('favorites');
   ref = ref.child(req.body.user.uid).child(req.body.imdbID);
   ref.set({post_body});
+})
 
+app.post('/removefavorites', function (req, res) {
+  var post_body = req.body;
+  console.log(post_body);
+  res.send({"result": "ok"});
+  /*let ref = db.ref('favorites');
+  ref = ref.child(req.body.user.uid).child(req.body.imdbID);
+  ref.set({post_body});*/
 })
 
 app.get('/getfavorites', (req, res) => {
