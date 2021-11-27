@@ -54,9 +54,9 @@ app.post('/removefavorites', function (req, res) {
   console.log(post_body);
   let ref = db.ref('favorites');
   console.log("removeFirebase")
-  ref = ref.child(req.body.user.uid).child(req.body.imdbID).remove().then(
-    res.send({"result": "ok"})
-  );
+  ref = ref.child(req.body.user.uid).child(req.body.imdbID).remove()
+  res.send({"result": "ok"})
+  return
 })
 
 app.get('/getfavorites', (req, res) => {
