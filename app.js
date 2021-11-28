@@ -74,12 +74,12 @@ app.get('/getfavorites', (req, res) => {
 
 app.get('/results', (req, res) => {
   const movieName = req.query.movie;
-  /*console.log("cache")
+  console.log("cache")
   if(cache.get(movieName)!==null){
     console.log("getting cache value")
     res.send(cache.get(movieName))
     return 
-  }else{*/
+  }else{
     console.log("firebase")
     admin.database().ref("results").once("value", snap => {
       if(snap.child(movieName).exists()){
@@ -106,7 +106,7 @@ app.get('/results', (req, res) => {
       }
     });
     return
-  //}
+  }
 })
 
 
