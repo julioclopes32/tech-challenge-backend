@@ -72,9 +72,9 @@ app.get('/getfavorites', (req, res) => {
 })
 
 app.get('/results', (req, res) => {
-  console.log(req)
   console.log(req.query)
-  console.log(req.query.movie);
+  console.log(JSON.stringify(req.query));
+  console.log(JSON.stringify(req.query.movie));
   res.send({"result": "ok"})
   return
 })
