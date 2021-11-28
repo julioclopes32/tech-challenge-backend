@@ -85,6 +85,7 @@ app.get('/results', (req, res) => {
       if(snap.child(movieName).exists()){
         console.log("getting firebase value")
         res.send(snap.val())
+        cache.put(movieName,body);
         return
       }else{
         console.log("movieapi")
