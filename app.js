@@ -73,7 +73,7 @@ app.get('/getfavorites', (req, res) => {
 })
 
 app.get('/results', (req, res) => {
-  const movieName = JSON.stringify(req.query.movie);
+  const movieName = req.query.movie;
   /*console.log("cache")
   if(cache.get(movieName)!==null){
     console.log("getting cache value")
@@ -98,8 +98,8 @@ app.get('/results', (req, res) => {
             console.log(body)
             res.send(body);
             cache.put(movieName,body);
-            let ref = db.ref('results').child(movieName);
-            ref.set({body});
+            let ref = db.ref('results');
+            ref.set({movieName});
             return
           }
         });
