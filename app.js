@@ -75,23 +75,33 @@ app.get('/getfavorites', (req, res) => {
 app.get('/results', (req, res) => {
   const movieName = JSON.stringify(req.query.movie);
   console.log("cache")
-  console.log(cache.get(movieName))
-  admin.database().ref("results").once("value", snap => {
+  if(cache.get(movieName)!==null){
+    console.log("getting cache value")
+    res.send(cache.get(movieName))
+    return 
+  }else{
     console.log("firebase")
-    console.log(snap.val())
-  }); 
-  request("https://www.omdbapi.com/?apikey="+apikey+ '&s=' + movieName, function(error, response, body){
-      // Setup an if statement to catch any errors
-      // which is optional but good practice 
-      if(!error && response.statusCode == 200){
-        // For now just print the body of the returned JSON
+    admin.database().ref("results").once("value", snap => {
+      if(snap.child(movieName).exists()){
+        console.log("getting firebase value")
+        res.send(snap.val())
+        return
+      }else{
         console.log("movieapi")
-        console.log(body)
+        request("https://www.omdbapi.com/?apikey="+apikey+ '&s=' + movieName, function(error, response, body){
+          // Setup an if statement to catch any errors
+          // which is optional but good practice 
+          if(!error && response.statusCode == 200){
+            // For now just print the body of the returned JSON
+            console.log("getting movieapi value")
+            console.log(body)
+            return
+          }
+        });
       }
-  });
-  
-  res.send({"result": "ok"})
-  return
+    });
+    return
+  }
 })
 
 
