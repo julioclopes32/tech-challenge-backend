@@ -2,6 +2,7 @@ const express = require('express')
 var bodyParser = require('body-parser')
 var admin = require("firebase-admin");
 var cache = require('memory-cache');
+var request = require("request");
 const app = express();
 const cors = require("cors");
 const apikey = "925eba28";
@@ -79,7 +80,7 @@ app.get('/results', (req, res) => {
     console.log("firebase")
     console.log(snap)
   }); 
-  request("https://www.omdbapi.com/?s=star+wars&apikey=key", function(error, response, body){
+  request("https://www.omdbapi.com/?apikey="+apikey+ '&s=' + movieName, function(error, response, body){
       // Setup an if statement to catch any errors
       // which is optional but good practice 
       if(!error && response.statusCode == 200){
