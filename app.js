@@ -1,6 +1,7 @@
 const express = require('express')
 var bodyParser = require('body-parser')
 var admin = require("firebase-admin");
+var cache = require('memory-cache');
 const app = express()
 const cors = require("cors")
 
@@ -12,7 +13,7 @@ admin.initializeApp({
 });
 
 const corsOptions ={
-  origin: 'http://tech-challenge-frontend.herokuapp.com', 
+  origin: 'http://localhost:3000',//'http://tech-challenge-frontend.herokuapp.com', 
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200
 }
@@ -24,7 +25,7 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => { console.log(`Server listening on port ${PORT}`); });
 
 app.all('*', function(req, res, next){
-  res.header("Access-Control-Allow-Origin", 'http://tech-challenge-frontend.herokuapp.com');
+  res.header("Access-Control-Allow-Origin", 'http://localhost:3000');//'http://tech-challenge-frontend.herokuapp.com');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -62,11 +63,6 @@ app.post('/removefavorites', function (req, res) {
 })
 
 app.get('/getfavorites', (req, res) => {
-  /*res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Max-Age", "1800");
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
-  res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" );*/
   console.log(req.query.id)
   let firebasearray = [];
   admin.database().ref("favorites").once("value", snap => {
@@ -74,6 +70,14 @@ app.get('/getfavorites', (req, res) => {
   });    
   return
 })
+
+app.get('/results', (req, res) => {
+  console.log(req.query.movie);
+  res.send({"result": "ok"})
+  return
+})
+
+
 /*
 
 const db = admin.database();
