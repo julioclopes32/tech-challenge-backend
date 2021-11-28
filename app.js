@@ -98,8 +98,8 @@ app.get('/results', (req, res) => {
             console.log(JSON.parse(body));
             res.send(body);
             cache.put(movieName,body);
-            //let ref = db.ref('results').child(movieName);
-            //ref.set(body);
+            let ref = db.ref('results').child(movieName);
+            ref.set(JSON.parse(body));
             return
           }
         });
