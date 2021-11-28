@@ -2,9 +2,9 @@ const express = require('express')
 var bodyParser = require('body-parser')
 var admin = require("firebase-admin");
 var cache = require('memory-cache');
-const app = express()
-const cors = require("cors")
-
+const app = express();
+const cors = require("cors");
+const apikey = "925eba28";
 var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f55a9c7f4.json"); 
 
 admin.initializeApp({
@@ -72,9 +72,23 @@ app.get('/getfavorites', (req, res) => {
 })
 
 app.get('/results', (req, res) => {
-  console.log(req.query)
-  console.log(JSON.stringify(req.query));
-  console.log(JSON.stringify(req.query.movie));
+  const movieName = JSON.stringify(req.query.movie);
+  console.log("cache")
+  console.log(cache.get(movieName))
+  admin.database().ref("results").once("value", snap => {
+    console.log("firebase")
+    console.log(snap)
+  }); 
+  request("https://www.omdbapi.com/?s=star+wars&apikey=key", function(error, response, body){
+      // Setup an if statement to catch any errors
+      // which is optional but good practice 
+      if(!error && response.statusCode == 200){
+        // For now just print the body of the returned JSON
+        console.log("movieapi")
+        console.log(body)
+      }
+  });
+  
   res.send({"result": "ok"})
   return
 })
