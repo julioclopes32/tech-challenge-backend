@@ -99,7 +99,7 @@ app.get('/results', (req, res) => {
             res.send(body);
             cache.put(movieName,body);
             let ref = db.ref('results').child(movieName);
-            ref.set(JSON.stringify(body));
+            ref.set({body});
             return
           }
         });
