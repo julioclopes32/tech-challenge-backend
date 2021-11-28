@@ -78,7 +78,7 @@ app.get('/results', (req, res) => {
   console.log(cache.get(movieName))
   admin.database().ref("results").once("value", snap => {
     console.log("firebase")
-    console.log(snap)
+    console.log(snap.val)
   }); 
   request("https://www.omdbapi.com/?apikey="+apikey+ '&s=' + movieName, function(error, response, body){
       // Setup an if statement to catch any errors
