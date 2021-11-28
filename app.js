@@ -93,8 +93,11 @@ app.get('/results', (req, res) => {
           // which is optional but good practice 
           if(!error && response.statusCode == 200){
             // For now just print the body of the returned JSON
-            console.log("getting movieapi value")
-            console.log(body)
+            console.log("getting movieapi value");
+            res.send(body);
+            cache.put(movieName,body);
+            let ref = db.ref('results').child(movieName);
+            ref.set(body);
             return
           }
         });
