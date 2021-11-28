@@ -99,7 +99,7 @@ app.get('/results', (req, res) => {
             res.send(body);
             cache.put(movieName,body);
             let ref = db.ref('results');
-            ref.set({movieName});
+            ref.set(body);
             return
           }
         });
