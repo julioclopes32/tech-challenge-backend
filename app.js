@@ -84,7 +84,7 @@ app.get('/results', (req, res) => {
     admin.database().ref("results").once("value", snap => {
       if(snap.child(movieName).exists()){
         console.log("getting firebase value")
-        res.send(snap.val())
+        res.send(snap.child(movieName).val())
         cache.put(movieName,snap.val());
         return
       }else{
@@ -99,7 +99,7 @@ app.get('/results', (req, res) => {
             res.send(body);
             cache.put(movieName,body);
             let ref = db.ref('results').child(movieName);
-            ref.set(body);
+            ref.set(JSON.stringify(body));
             return
           }
         });
