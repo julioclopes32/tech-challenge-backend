@@ -8,6 +8,7 @@ const cors = require("cors");
 const apikey = "925eba28";
 var serviceAccount = require("./tech-challenge-2ccfa-firebase-adminsdk-6scu7-5f55a9c7f4.json"); 
 
+//Initializing firebase database
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://tech-challenge-2ccfa-default-rtdb.firebaseio.com"
@@ -25,6 +26,7 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => { console.log(`Server listening on port ${PORT}`); });
 
+//add headers to http response, in all GET/POST methods, it's necessary because we are using the beckend and frontend in a differente domain.
 app.all('*', function(req, res, next){
   res.header("Access-Control-Allow-Origin", 'http://tech-challenge-frontend.herokuapp.com');
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -38,6 +40,7 @@ app.get('/', (req, res) => {
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
 
+//add favorite movie from movie list.
 app.post('/favorites', function (req, res) {
   var post_body = req.body;
   console.log(post_body);
@@ -48,6 +51,7 @@ app.post('/favorites', function (req, res) {
   return
 })
 
+//remove favorite movie from movie list.
 app.post('/removefavorites', function (req, res) {
   var post_body = req.body;
   console.log(post_body);
@@ -63,6 +67,7 @@ app.post('/removefavorites', function (req, res) {
   return
 })
 
+//return favorite movie list.
 app.get('/getfavorites', (req, res) => {
   console.log(req.query.id)
   let firebasearray = [];
@@ -75,11 +80,13 @@ app.get('/getfavorites', (req, res) => {
 app.get('/results', (req, res) => {
   const movieName = req.query.movie;
   console.log("cache")
+  //Try to reach cache memory on result keyword
   if(cache.get(movieName)!==null){
     console.log("getting cache value")
     res.send(cache.get(movieName))
     return 
   }else{
+    //Try to reach firebase database on result keyword and save data in cache.
     console.log("firebase")
     admin.database().ref("results").once("value", snap => {
       if(snap.child(movieName).exists()){
@@ -88,6 +95,7 @@ app.get('/results', (req, res) => {
         cache.put(movieName,snap.val());
         return
       }else{
+        //Try to reach omdb api on result keyword, and save data on cache and firebase databse
         console.log("movieapi")
         request("https://www.omdbapi.com/?apikey="+apikey+ '&s=' + movieName, function(error, response, body){
           // Setup an if statement to catch any errors
@@ -108,48 +116,5 @@ app.get('/results', (req, res) => {
     return
   }
 })
-
-
-/*
-
-const db = admin.database();
-const ref = db.ref('teste/saving-data/post');
-
-
-const usersRef = ref.child('users');
-usersRef.set({
-  alanisawesome: {
-    date_of_birth: 'June 23, 1912',
-    full_name: 'Alan Turing'
-  },
-  gracehop: {
-    date_of_birth: 'December 9, 1906',
-    full_name: 'Grace Hopper'
-  }
-});
-
-app.get('/sms', (req,res)=>{   
-     
-  res.send({    
-      
-          user: '1234',
-          contact: [
-            {
-              number: '534543543',
-              message: 'test message 1',
-              externalid: '123456'
-            }
-          ],
-          type: '2'      
-  })
-}) */
-
+//Allow Access-Control-Allow-Origin, it's necessary because we are using the beckend and frontend in a differente domain.
 app.use(cors(corsOptions));
-/*
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(err.statusCode).json(err);
-});
-*/
